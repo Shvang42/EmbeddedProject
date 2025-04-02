@@ -1,0 +1,47 @@
+# CCS Build Directories
+Debug/
+Release/
+.xdchelp
+.config/
+.launches/
+
+# Generated Files
+*.map
+*.obj
+*.out
+*.pbi
+*.bin
+*.lst
+*.p1
+*.dmp
+*.mk
+*.bat
+*.opt
+*.pp
+*.mp
+*.d_raw
+*.d
+*.xml
+*.ccxml
+*.eww
+*.ccsproject
+*.cproject
+
+# Code Composer Studio
+.settings/
+.metadata/
+.launches/
+dvt/
+.jxbrowser*
+.vscode/
+
+# Miscellaneous
+.DS_Store
+*.swp
+*.swo
+*.bak
+*~
+.clangd/
+
+# Project specific (from your file paths)
+/Users/shivang/Documents/GitHub/EmbeddedProject/ResidentialHVAC/Debug/
