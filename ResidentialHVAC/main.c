@@ -1,20 +1,19 @@
 /**
-Homework2.c
-Author: Shivang Patel
-IES Section 
+main.c
+Author: Shivang Patel, Phillip Amaro
 
-This code intializes the Red and Green LEDs as outputs. 
-While Button 4.1 is held down, the RED Led will blink once per second.
-While Button 2.3 is held down, the Green LED will blink once per second.
+Main method for Residential Boiler System
 
-
-
-Last Revision: 2/19/25
+Last Revision: 3/8/25
 
 */
 
 
 #include <msp430.h>
+#include <main.h>
+
+/**
+Homework2.c code below
 
 #define DELAYCYCLES 50000
 
@@ -164,3 +163,5 @@ __interrupt void Port_2_ISR(void) {
 
     }
 }
+
+*/
