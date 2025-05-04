@@ -22,7 +22,7 @@ unsigned int readPot() {
 }
 
 
-void initADC() {
+void initSensorsADC() {
     // Configure ADC Pins
     P1SEL0 |= BIT3 | BIT4 | BIT5;
     P1SEL1 |= BIT3 | BIT4 | BIT5;

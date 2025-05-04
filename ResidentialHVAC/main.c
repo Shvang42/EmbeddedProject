@@ -10,8 +10,25 @@ Last Revision: 3/8/25
 
 
 #include <msp430.h>
-#include <main.h>
+#include "sensors.h"
+#include "RGBLED.h"
 
+volatile unsigned char idle = 0;
+
+int main(void) {
+    // Stop watchdog timer
+    WDTCTL = WDTPW | WDTHOLD;               
+
+    // Disable the GPIO power-on default high-impedance mode
+    // to activate previously configured port setting
+    PM5CTL0 &= ~LOCKLPM5;                   
+    
+    initSensorsADC();
+    initRGB();
+    pilotValveInit();
+    
+
+}
 /**
 Homework2.c code below
 
