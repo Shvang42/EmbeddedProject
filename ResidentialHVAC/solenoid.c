@@ -2,11 +2,29 @@
 #include "solenoid.h"
 
 void initSolenoid() {
+    /*
     P2DIR &= ~BIT5;
     P2REN |= BIT5;
     P2OUT |= BIT5;
+    */
+
+    P2DIR |= BIT5;
+    P2OUT &= ~BIT5;
 }
 
+void pilotOn() {
+    P2OUT |= BIT5;
+}
+
+void pilotOff() {
+    P2OUT &= ~BIT5;
+}
+
+void togglePilot() {
+    P2OUT ^= BIT5;
+}
+
+/*
 void isSolenoidOn() {
     if(P2IN & BIT5) {
         return true;
@@ -15,3 +33,4 @@ void isSolenoidOn() {
         return false;
     }
 }
+*/

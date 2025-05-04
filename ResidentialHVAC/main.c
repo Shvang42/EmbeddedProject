@@ -10,12 +10,16 @@ Last Revision: 3/4/25
 
 
 #include <msp430.h>
+#include "intrinsics.h"
 #include "sensors.h"
 #include "RGBLED.h"
 #include "solenoid.h"
 #include "callForHeat.h"
+#include "ignitorLED.h"
+#include "servo.h"
 
-volatile unsigned char idle = 0;
+bool idle = true;
+bool spark = false;
 
 int main(void) {
     // Stop watchdog timer
@@ -27,10 +31,67 @@ int main(void) {
     
     initSensorsADC();
     initRGB();
-    pilotValveInit();
+    initSolenoid();
+    initServo();
+    initCFH();
+    initIgnitorLED();
 
     while(1) {
-
+        if(callForHeatCheck()) {
+            idle = false;
+            ignitionProcess();
+        }
     }
     
+}
+
+static void ignitionProcess() {
+    while(idle == false) {
+        // timer started spark on and open pilot valve, then check for flame
+        // timer on
+        spark = true;
+        pilotOn();
+        if(flameProved()) {
+            spark == false;
+            servo(100); // open main gas valve to 100%
+            __delay_cycles(2000); // wait 2 seconds for flame stabilization
+            unsigned int flameLosses = 0;
+            while(callForHeatCheck()) {
+                if(flameProved() == false) {
+                    pilotOff();
+                    servo(0);
+                    flameLosses++;
+                    for(int i = 0; i < 6; i++) {
+                        if(flameProved()){
+                            flameLosses = 0;
+                            break;
+                        }
+                        else {
+                            flameLosses++;
+                        }
+                    }
+                    if(flameLosses > 5) {
+                        // delay 5 mins
+                        // __delay_cycles(50000);
+                        ignitionProcess();
+                    }
+                    else {
+                        ignitionProcess();
+                    }
+                }
+            }
+            pilotOff();
+            servo(0);
+            idle = true;
+        }
+        else {
+            // timer off
+            spark = false;
+            pilotOff();
+            // 5 min delay and retry
+            // __delay_cycles(50000);
+            ignitionProcess();
+        }
+
+    }
 }
