@@ -3,4 +3,3 @@ void initSolenoid();
 void pilotOn();
 void pilotOff();
 void togglePilot();
-//bool isSolenoidOn();
