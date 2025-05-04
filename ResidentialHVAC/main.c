@@ -51,22 +51,27 @@ static void ignitionProcess() {
         // timer on
         spark = true;
         pilotOn();
-        if(flameProved()) {
+        if(readThermocouple()) {
+            // turn ignitor led on
+            flamePresent();
             spark == false;
             servo(100); // open main gas valve to 100%
             __delay_cycles(2000); // wait 2 seconds for flame stabilization
             unsigned int flameLosses = 0;
             while(callForHeatCheck()) {
-                if(flameProved() == false) {
+                if(readThermocouple() == false) {
+                    flameLost();
                     pilotOff();
                     servo(0);
                     flameLosses++;
                     for(int i = 0; i < 6; i++) {
-                        if(flameProved()){
+                        if(readThermocouple()){
+                            flamePresent();
                             flameLosses = 0;
                             break;
                         }
                         else {
+                            flameLost();
                             flameLosses++;
                         }
                     }
@@ -80,11 +85,13 @@ static void ignitionProcess() {
                     }
                 }
             }
+            flameLost();
             pilotOff();
             servo(0);
             idle = true;
         }
         else {
+            flameLost();
             // timer off
             spark = false;
             pilotOff();

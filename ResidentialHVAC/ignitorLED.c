@@ -13,6 +13,7 @@ void initIgnitorLED() {
     P2OUT &= ~BIT0;
 }
 
+/*
 // method for random was made through the help of claude.ai
 int randomNumber() {
     // update seed for better randomness
@@ -20,8 +21,11 @@ int randomNumber() {
 
     return ((seed >> 16) & 0x7FFF) % 100;
 }
+*/
 
-bool flameProved() {
+void flamePresent() {
+    P2OUT |= BIT0;
+    /*
     int random = randomNumber();
 
     if(number < 95) {
@@ -32,4 +36,9 @@ bool flameProved() {
         P2OUT &= ~BIT0;
         return false;
     }
+    */
+}
+
+void flameLost() {
+    P2OUT &= ~BIT0;
 }
