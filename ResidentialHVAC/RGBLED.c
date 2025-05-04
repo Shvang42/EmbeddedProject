@@ -3,8 +3,8 @@
 
 void setLedState(char state) {
     if(state == "idle") {
-        // set to orange since idle
-        setRGBLED(255, 176, 65);
+        // set to blue since idle
+        setRGBLED(137, 175, 240);
     }
     else { // any char beside idle will be considered not idle or active, set to green
         setRGBLED(86, 209, 90);
