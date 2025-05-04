@@ -77,7 +77,7 @@ static void ignitionProcess() {
                     }
                     if(flameLosses > 5) {
                         // delay 5 mins
-                        // __delay_cycles(50000);
+                        __delay_cycles(50000);
                         ignitionProcess();
                     }
                     else {
@@ -96,7 +96,7 @@ static void ignitionProcess() {
             spark = false;
             pilotOff();
             // 5 min delay and retry
-            // __delay_cycles(50000);
+            __delay_cycles(50000);
             ignitionProcess();
         }
 
