@@ -49,7 +49,7 @@ int main(void) {
 
 static void ignitionProcess() {
     while(idle == false) {
-        // timer started spark on and open pilot valve, then check for flame
+        // timer started, spark on and open pilot valve, then check for flame
         // timer on
         spark = true;
         pilotOn();

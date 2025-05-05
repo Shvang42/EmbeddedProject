@@ -3,12 +3,7 @@
 #include "ignitorLED.h"
 #include "msp430fr2355.h"
 
-static unsigned int seed = 0;
-
 void initIgnitorLED() {
-    // initialize random seed via timer
-    seed = TB0R;
-
     P2DIR |= BIT0;
     P2OUT &= ~BIT0;
 }

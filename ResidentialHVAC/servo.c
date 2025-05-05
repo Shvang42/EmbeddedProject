@@ -14,7 +14,7 @@ void initServo() {
 }
 
 int servo(int position) {
-    
+    // help from claude to control servo from 0-100% open
     unsigned int pulseWidth = MIN_PULSE + ((MAX_PULSE - MIN_PULSE) * position/100);
     TB0CCR5 = pulseWidth;
 
