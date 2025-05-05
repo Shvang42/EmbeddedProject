@@ -36,9 +36,11 @@ int main(void) {
     initCFH();
     initIgnitorLED();
 
+    setLedState("idle");
     while(1) {
         if(callForHeatCheck()) {
             idle = false;
+            setLedState("not idle");
             ignitionProcess();
         }
     }
@@ -88,6 +90,7 @@ static void ignitionProcess() {
             flameLost();
             pilotOff();
             servo(0);
+            setLedState("idle");
             idle = true;
         }
         else {
